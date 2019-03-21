@@ -1,10 +1,10 @@
 const generateRandomNum = (num) => {
   return (Math.random() * num);
-}
+};
 
 const generateRandomDelay = () => {
   return generateRandomNum(10) * 100;
-}
+};
 
 const getNumLessThanTen = (callback) => {
   const randomDelay = generateRandomDelay();
@@ -15,8 +15,16 @@ const getNumLessThanTen = (callback) => {
   }, randomDelay);
 };
 
+const getNumLessThanTenAsync = () => {
+  return new Promise((resolve, reject) => {
+    getNumLessThanTen((err, num) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(num);
+      }
+    });
+  });
+};
 
-
-
-module.exports = getNumLessThanTen;
-
+module.exports = { getNumLessThanTen, getNumLessThanTenAsync };
